@@ -12,7 +12,7 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   backend:
-    build: ./backend/
+    build: ./backend
     env_file: .env
     volumes:
       - static:/backend_static
@@ -21,13 +21,13 @@ services:
 
   frontend:
     env_file: .env
-    build: ./frontend/
+    build: ./frontend
     volumes:
       - static:/frontend_static
-    command: cp -r /app/build/. /frontend_static/
+    command: cp -r /app/build/. /frontend_static
 
   gateway:
-    build: ./gateway/
+    build: ./gateway
     env_file: .env
     volumes:
       - static:/staticfiles
