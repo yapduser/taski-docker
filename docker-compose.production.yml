@@ -1,8 +1,8 @@
 version: '3'
 
 volumes:
-  pg_data_taski:
-  static_volume_taski:
+  pg_data:
+  static:
 
 services:
   db:
@@ -10,14 +10,14 @@ services:
     image: postgres:13
     env_file: .env
     volumes:
-      - pg_data_taski:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
 
   backend:
     container_name: taski-backend
     image: andprov/taski_backend
     env_file: .env
     volumes:
-      - static_volume_taski:/backend_static
+      - static:/backend_static
     depends_on:
       - db
 
@@ -26,7 +26,7 @@ services:
     image: andprov/taski_frontend
     env_file: .env
     volumes:
-      - static_volume_taski:/frontend_static
+      - static:/frontend_static
     command: cp -r /app/build/. /frontend_static
 
   gateway:
@@ -34,6 +34,6 @@ services:
     image: andprov/taski_gateway
     env_file: .env
     volumes:
-      - static_volume_taski:/staticfiles
+      - static:/staticfiles
     ports:
       - 8000:80
